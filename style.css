@@ -1,0 +1,236 @@
+/* =====================================================
+   Hostel Complaint Management System — Stylesheet
+   Design concept: the "work-order ticket" — every complaint
+   reads like a torn maintenance slip from a request pad,
+   punched and logged on a slate noticeboard.
+   ===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --bg: #12161d;
+  --panel: #1b212b;
+  --panel-alt: #232a35;
+  --border: #2c3440;
+  --text: #edf0f4;
+  --text-muted: #8a93a3;
+  --amber: #e0a030;
+  --amber-dim: #4a3a1e;
+  --red: #d9635e;
+  --red-dim: #4a2321;
+  --green: #52b788;
+  --green-dim: #1f3a2e;
+  --blue: #6ea8e0;
+  --radius: 10px;
+  --font-display: 'Sora', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 22px 22px;
+  color: var(--text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+}
+
+h1, h2, h3 { font-family: var(--font-display); margin: 0 0 .6em; letter-spacing: -0.01em; }
+h2 { font-size: 1.3rem; }
+h3 { font-size: 1.05rem; }
+
+/* ---------------- Topbar ---------------- */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 28px;
+  border-bottom: 1px solid var(--border);
+  background: var(--panel);
+}
+.topbar__brand { display: flex; align-items: center; gap: 12px; }
+.topbar__mark {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  background: var(--amber-dim);
+  color: var(--amber);
+  border: 1px solid var(--amber);
+  border-radius: 6px;
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .9rem;
+}
+.topbar__title { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: 1rem; }
+.topbar__sub { margin: 0; color: var(--text-muted); font-size: .78rem; }
+.topbar__user { display: flex; align-items: center; gap: 14px; font-size: .9rem; }
+
+/* ---------------- Buttons & forms ---------------- */
+.btn {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: .85rem;
+  border-radius: 7px;
+  padding: 10px 18px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform .12s ease, opacity .12s ease;
+}
+.btn:active { transform: scale(0.97); }
+.btn--primary { background: var(--amber); color: #201400; }
+.btn--primary:hover { opacity: .92; }
+.btn--ghost { background: transparent; border-color: var(--border); color: var(--text); }
+.btn--ghost:hover { border-color: var(--amber); color: var(--amber); }
+.btn--sm { padding: 6px 12px; font-size: .78rem; }
+
+.form { display: flex; flex-direction: column; gap: 14px; max-width: 420px; }
+.form--wide { max-width: 620px; }
+.form__row { display: flex; gap: 14px; }
+.form__row label { flex: 1; }
+label {
+  display: flex; flex-direction: column; gap: 6px;
+  font-size: .82rem; color: var(--text-muted);
+}
+input, select, textarea {
+  font-family: var(--font-body);
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 10px 12px;
+  color: var(--text);
+  font-size: .92rem;
+}
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--amber);
+  outline-offset: 1px;
+  border-color: var(--amber);
+}
+.form__hint { font-size: .75rem; color: var(--text-muted); margin: -6px 0 0; }
+.form__error { color: var(--red); font-size: .82rem; min-height: 1em; }
+.form__success { color: var(--green); font-size: .82rem; min-height: 1em; }
+
+/* ---------------- Tabs ---------------- */
+.tabs { display: flex; gap: 6px; padding: 18px 28px 0; }
+.tabs--app { border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+.tab {
+  background: none; border: none; color: var(--text-muted);
+  font-family: var(--font-display); font-weight: 600; font-size: .85rem;
+  padding: 10px 16px; border-radius: 8px 8px 0 0; cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+.tab--active { color: var(--amber); border-bottom: 2px solid var(--amber); }
+.tab:hover { color: var(--text); }
+
+/* ---------------- Auth ---------------- */
+.auth { display: flex; justify-content: center; padding: 60px 20px; }
+.auth__panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 30px 30px;
+  width: 100%; max-width: 440px;
+}
+
+/* ---------------- App / panels ---------------- */
+.app { padding: 0 28px 60px; }
+.panel { padding: 26px 0; max-width: 760px; }
+
+/* ---------------- Ticket stub cards ---------------- */
+.stub-list { display: flex; flex-direction: column; gap: 16px; }
+
+.stub {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--amber);
+  border-radius: var(--radius);
+  padding: 18px 20px 18px 22px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px 16px;
+}
+.stub--resolved { border-left-color: var(--green); }
+.stub--rejected { border-left-color: var(--red); opacity: .8; }
+.stub--high::after {
+  content: "URGENT";
+  position: absolute; top: 14px; right: 18px;
+  font-family: var(--font-mono); font-size: .65rem; letter-spacing: .08em;
+  color: var(--red); border: 1px solid var(--red); border-radius: 4px;
+  padding: 2px 6px;
+}
+
+.stub__id {
+  font-family: var(--font-mono); font-size: .72rem; color: var(--text-muted);
+  letter-spacing: .04em;
+}
+.stub__title { font-family: var(--font-display); font-weight: 600; font-size: 1.02rem; margin: 2px 0 4px; }
+.stub__meta { font-size: .78rem; color: var(--text-muted); display: flex; gap: 10px; flex-wrap: wrap; }
+.stub__desc { font-size: .87rem; color: var(--text); margin-top: 8px; line-height: 1.5; }
+.stub__remarks {
+  margin-top: 10px; font-size: .82rem; color: var(--text-muted);
+  border-top: 1px dashed var(--border); padding-top: 8px;
+}
+.stub__actions { grid-column: 1 / -1; display: flex; gap: 8px; margin-top: 6px; }
+
+.status-pill {
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+  height: fit-content;
+  border: 1px solid var(--border);
+}
+.status-pill--pending { color: var(--amber); border-color: var(--amber); }
+.status-pill--assigned, .status-pill--in-progress { color: var(--blue); border-color: var(--blue); }
+.status-pill--resolved { color: var(--green); border-color: var(--green); }
+.status-pill--rejected { color: var(--red); border-color: var(--red); }
+
+/* perforation flourish under each stub, evokes a torn ticket edge */
+.stub::before {
+  content: "";
+  position: absolute;
+  left: -1px; bottom: -9px;
+  width: calc(100% + 2px); height: 9px;
+  background-image: radial-gradient(circle 3px, var(--bg) 3px, transparent 3.5px);
+  background-size: 14px 14px;
+  background-position: 4px 0;
+  background-repeat: repeat-x;
+}
+
+/* ---------------- Filters / reports ---------------- */
+.filters { display: flex; gap: 10px; margin-bottom: 18px; }
+.report-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.report-card {
+  background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 16px 18px;
+}
+.report-card__num { font-family: var(--font-mono); font-size: 1.6rem; color: var(--amber); }
+.report-card__label { font-size: .8rem; color: var(--text-muted); }
+
+/* ---------------- Modal ---------------- */
+.modal {
+  position: fixed; inset: 0; background: rgba(6,8,12,.7);
+  display: flex; align-items: center; justify-content: center; z-index: 50;
+}
+.modal__box {
+  background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 24px; width: 100%; max-width: 420px;
+}
+
+/* ---------------- Responsive ---------------- */
+@media (max-width: 600px) {
+  .topbar, .tabs, .app { padding-left: 16px; padding-right: 16px; }
+  .form__row { flex-direction: column; }
+  .stub { grid-template-columns: 1fr; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
