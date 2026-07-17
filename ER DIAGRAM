@@ -1,0 +1,51 @@
++------------------+
+                      |     STUDENT     |
+                      +------------------+
+                      | Student_ID (PK) |
+                      | Name            |
+                      | Roll_No         |
+                      | Room_No         |
+                      | Department      |
+                      | Phone           |
+                      | Email           |
+                      +------------------+
+                               |
+                               | Raises
+                               | 1 : M
+                               |
+                      +------------------+
+                      |    COMPLAINT     |
+                      +------------------+
+                      | Complaint_ID(PK) |
+                      | Student_ID (FK)  |
+                      | Category         |
+                      | Description      |
+                      | Date             |
+                      | Status           |
+                      +------------------+
+                               |
+                               | Assigned To
+                               | M : 1
+                               |
+                      +------------------+
+                      |     STAFF        |
+                      +------------------+
+                      | Staff_ID (PK)    |
+                      | Name             |
+                      | Designation      |
+                      | Phone            |
+                      +------------------+
+                               |
+                               | Updates
+                               | 1 : M
+                               |
+                      +------------------+
+                      |   RESOLUTION     |
+                      +------------------+
+                      | Resolution_ID(PK)|
+                      | Complaint_ID(FK) |
+                      | Staff_ID (FK)    |
+                      | Action_Taken     |
+                      | Resolved_Date    |
+                      | Remarks          |
+                      +------------------+
